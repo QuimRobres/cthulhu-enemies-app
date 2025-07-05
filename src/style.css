@@ -1,21 +1,55 @@
 @import "tailwindcss";
 
 @theme {
-  --color-abyssal-green-500: #2e5339;   /* Verde profundo y enfermizo */
-  --color-eldritch-purple-500: #4b2e4a; /* Púrpura arcano y misterioso */
-  --color-deep-ocean-500: #1b2d3a;      /* Azul oscuro submarino */
-  --color-necrotic-bone-500: #d8d3c3;   /* Marfil pálido, casi enfermizo */
-  --color-insanity-pink-500: #a65e5e;   /* Rosa perturbador, ligeramente corrupto */
-  --color-ritual-gold-500: #a28b45;     /* Oro antiguo y deslucido */
-  --color-void-black-500: #0e0e10;      /* Negro profundo del vacío */
+  --color-dark-violet: #191720;
+  --color-dark-blue: #181c25;
+  --color-light-blue: #4b5eaa;
+  --color-light-green: #2f4642;
+  --color-medium-green: #4c7a5c;
+  --color-medium-light-green: #81a084;
+  --color-bright-green: #81a084;
+  --color-light-gray: #9aa09b;
+  --color-dark-red: #8b2e2e;
+  --color-light-red: #b3423a;
+  --color-grayblue-dark: #3a3d4a;
+
+  --color-abyssal-green-300: #4c7a5c;
+  --color-abyssal-green-500: #2e5339;
+  --color-abyssal-green-700: #1c3524;
+
+  --color-eldritch-purple-300: #6f4a6e;
+  --color-eldritch-purple-500: #4b2e4a;
+  --color-eldritch-purple-700: #301c2e;
+
+  --color-deep-ocean-300: #375268;
+  --color-deep-ocean-500: #1b2d3a;
+  --color-deep-ocean-700: #0f1a22;
+
+  --color-necrotic-bone-300: #f0ede2;
+  --color-necrotic-bone-500: #d8d3c3;
+  --color-necrotic-bone-700: #b1ab97;
+
+  --color-insanity-pink-300: #c87c7c;
+  --color-insanity-pink-500: #a65e5e;
+  --color-insanity-pink-700: #7e4141;
+
+  --color-ritual-gold-300: #c3ae6b;
+  --color-ritual-gold-500: #a28b45;
+  --color-ritual-gold-700: #6e612f;
+
+  --color-void-black-300: #2a2a2d;
+  --color-void-black-500: #0e0e10;
+  --color-void-black-700: #000000;
 }
 :root {
-  
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.87);
+  color: #d8d3c3;
+  font-size: 14px;
   font-synthesis: none;
+  background-color: #191720;
+
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -23,5 +57,25 @@
 
 #app {
   margin: 0 auto;
+}
+
+/* Aplica a todo el documento o a un contenedor específico */
+::-webkit-scrollbar {
+  width: 6px; /* Grosor vertical */
+  height: 6px; /* Grosor horizontal */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Sin fondo para ser más limpio */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(153, 153, 153, 0.2); /* Color sutil */
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.4); /* Al pasar el mouse */
 }
 

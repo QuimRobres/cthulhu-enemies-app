@@ -1,5 +1,5 @@
 import type { IEnemyOption } from "../types";
-import type { IEnemyItem } from "../types/enemy-item.interface";
+/* import type { IEnemyItem } from "../types/enemy-item.interface"; */
 
 const generateStat = (
   diceType: number,
@@ -62,15 +62,21 @@ export const generateEnemies = (selectedEnemies: IEnemyOption[]) => {
     if (enemy.count > 0) {
       for (let i = 0; i < enemy.count; i++) {
         let strength = 0;
+        let constitution = 0;
         let size = 0;
-        let enemyItem: IEnemyItem = {
+        let enemyItem: any = {
           id: `${enemy.value}-${i + 1}`,
           name: `${enemy.label}-${i + 1}`,
           type: enemy.value,
-          health: generateStat(6, 3, 5, "*"),
+          health: 0,
           damageModifier: "",
           corpulence: "",
-          items:[],
+          extraField: {
+          id: enemy.extraField?.id || "",
+          label: enemy.extraField?.label || "",
+          selectedOptions: [],
+          colorIdentifier: "",
+          },
           stats: enemy.statsConfig.map((statConfig) => {
             const statItem = {
               name: statConfig.name,
@@ -95,10 +101,14 @@ export const generateEnemies = (selectedEnemies: IEnemyOption[]) => {
           }),
         };
         const modifiers = getDamageModifier(strength + size);
+        const health = (constitution + size) / 10;
+
+    
         enemyItem = {
           ...enemyItem,
           damageModifier: modifiers?.damageValue || "-",
           corpulence: modifiers?.corpulenceValue || "0",
+          health: Math.floor(health) + 4,
         };
         enemiesTableStats.push(enemyItem);
       }

@@ -8,13 +8,13 @@ import { generateEnemies } from '../utils/generate-enemies-utils';
 import EnemiesTable from './enemies-table/EnemiesTable.vue';
 
 // Explicitly type the options as IEnemyOption[] to ensure correct typing for 'operation'
-import type { IEnemyOption } from '../types';
-const monstriOptions = ref<IEnemyOption[]>([
+/* import type { IEnemyOption } from '../types'; */
+const monstriOptions = ref<any>([
     {
         value: 'human', label: 'Humano', count: 0, extraField: {
             id: "weapon",
             label: "Armas",
-            selectedOptions: [],
+
             /*    options: [
                    { value: 'knife', label: 'Cuchillo', damage: "1D4 + BD", type: "corta" },
                    { value: 'gun', label: 'Pistola', damage: "1d6", type: "fuego" },
@@ -27,8 +27,6 @@ const monstriOptions = ref<IEnemyOption[]>([
             { id: 'dexterity', name: "Destreza", numberOfDices: 3, diceType: 6, modifier: 5, operation: "*" as "*" },
             { id: 'inteligence', name: "Inteligencia", numberOfDices: 3, diceType: 6, modifier: 5, operation: "+" as "+", extraModifier: 5, extraOperation: "*" as "*" },
             { id: 'power', name: "Poder", numberOfDices: 3, diceType: 6, modifier: 5, operation: "*" as "*" },
-            { id: 'appearence', name: "Apariencia", numberOfDices: 3, diceType: 6, modifier: 5, operation: "*" as "*" },
-            { id: "education", name: "Educación", numberOfDices: 3, diceType: 6, modifier: 5, operation: "+" as "+", extraModifier: 5, extraOperation: "*" as "*" }
         ]
     },
     {
@@ -39,11 +37,18 @@ const monstriOptions = ref<IEnemyOption[]>([
             { id: 'dexterity', name: "Destreza", numberOfDices: 3, diceType: 6, modifier: 5, operation: "*" as "*" },
             { id: 'inteligence', name: "Inteligencia", numberOfDices: 2, diceType: 6, modifier: 6, operation: "+" as "+", extraModifier: 5, extraOperation: "*" as "*" },
             { id: 'power', name: "Poder", numberOfDices: 3, diceType: 6, modifier: 5, operation: "*" as "*" },
-            { id: 'appearence', name: "Apariencia", numberOfDices: 3, diceType: 6, modifier: 5, operation: "*" as "*" },
-            { id: "education", name: "Educación", numberOfDices: 3, diceType: 6, modifier: 5, operation: "+" as "+" }
         ]
     },
 
+])
+
+const colorOptions = ref<any>([
+    { value: 'red', label: "#fc0303", isSelected: false },
+    { value: 'light-green', label: "#3dfc03", isSelected: false },
+    { value: 'light-blue', label: '#03a5fc', isSelected: false },
+    { value: 'yellow', label: '#fcec03', isSelected: false },
+    { value: 'purple', label: '#A020F0', isSelected: false },
+    { value: 'grey', label: '#9c9c9c', isSelected: false },
 ])
 
 let enemiesArr: any = ref([])
@@ -54,19 +59,32 @@ let enemiesArr: any = ref([])
 
 const handleGenerateEnemies = () => {
     const enemies = generateEnemies(monstriOptions.value);
-    console.log('test kimo monstriOptions', enemies);
     const updatedEnemies = [...enemiesArr.value, ...enemies];
     enemiesArr.value = updatedEnemies
+    
+
 }
 
 const handleResetEnemies = () => {
     enemiesArr.value = [];
 }
 
+const handleRemoveEnemy = (index: number) => {
+    enemiesArr.value.splice(index, 1);
+}
+
+const handleAddColorIdentifier = (index: number, value: string) => {
+    enemiesArr.value[index].colorIdentifier = enemiesArr.value[index].colorIdentifier = value;
+    /*    const colorOption = colorOptions.value.find((option: any) => option.value === value);
+       if (colorOption) {
+           colorOption.isSelected = !colorOption.isSelected;
+       } */
+
+}
 </script>
 
 <template>
-    <div class="text-sm">
+    <div class="">
         <div class="flex space-x-4 items-start">
             <EnemySelectionPanel :options="monstriOptions" />
             <div class="flex items-center space-x-4 pt-2">
@@ -74,8 +92,9 @@ const handleResetEnemies = () => {
                 <Button :onClick="handleResetEnemies" text="Clean enemies" />
             </div>
         </div>
-        <div >
-            <EnemiesTable :enemies="enemiesArr" />
+        <div class="pt-4">
+            <EnemiesTable :enemies="enemiesArr" :removeEnemy="handleRemoveEnemy" :colorOptions="colorOptions"
+                :handleAddColorIdentifier="handleAddColorIdentifier" />
         </div>
     </div>
 </template>
